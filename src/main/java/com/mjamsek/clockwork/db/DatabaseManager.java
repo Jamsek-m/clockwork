@@ -8,9 +8,14 @@ public class DatabaseManager {
     
     private static final String PERSISTENCE_UNIT = "persistence";
     
+    private static EntityManager managerInstance = null;
+    
     public static EntityManager getEntityManager() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        return factory.createEntityManager();
+        if (managerInstance == null) {
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+            managerInstance = factory.createEntityManager();
+        }
+        return managerInstance;
     }
     
 }
